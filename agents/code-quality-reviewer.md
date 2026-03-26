@@ -18,6 +18,7 @@ The code has already passed spec compliance, so it builds the right thing. Your 
 2. **Architecture** — Is there proper separation of concerns? Does each file have one clear responsibility? Is coupling minimized?
 3. **Testing** — Do tests verify real behavior or just mock behavior? Are edge cases covered? Was TDD actually followed (or were tests written after)?
 4. **Plan alignment** — Does the implementation follow the file structure from the plan? If it deviates, is the deviation justified?
+5. **Dead code and leftovers** — Scope this to the changed files only, not the entire codebase. Check for: unused imports, unreferenced functions or variables introduced by this change, code paths that can never execute (dead branches after refactoring), commented-out code left behind, stale TODO comments, backwards-compatibility shims that aren't needed (renamed-but-unused variables, re-exports of removed types). If the change deleted a feature, verify that all references to it were also removed.
 
 ## Issue Severity
 
