@@ -7,8 +7,8 @@
     {
       "name": "ironflow",
       "source": {
-        "source": "github",
-        "repo": "Zhijiang-Li1111/ironflow"
+        "source": "url",
+        "url": "https://github.com/Zhijiang-Li1111/ironflow.git"
       },
       "description": "Rigorous development workflow: spec-first, plan-review, TDD, serial-review, finishing-branch",
       "version": "1.0.0"
