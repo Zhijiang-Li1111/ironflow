@@ -11,7 +11,7 @@ Why: If the implementation doesn't match the spec, reviewing code quality is was
 
 ## Stage 1: Spec Compliance Review
 
-Dispatch an independent agent to verify the implementation matches what was requested — nothing more, nothing less.
+Dispatch an independent agent (`agents/spec-compliance-reviewer.md`) to verify the implementation matches what was requested — nothing more, nothing less.
 
 For new features, "what was requested" is the spec document. For bug fixes without a spec, verify against the bug report or issue description — confirm the reported bug is actually fixed and no new regressions are introduced.
 
@@ -36,7 +36,7 @@ Dispatch the implementer to fix. Then re-review from Stage 1. Do not skip the re
 
 ## Stage 2: Code Quality Review
 
-Only after Stage 1 passes. Dispatch a code quality reviewer to check:
+Only after Stage 1 passes. Dispatch a code quality reviewer (`agents/code-quality-reviewer.md`) to check:
 
 - Code quality: patterns, error handling, type safety
 - Architecture: separation of concerns, file responsibilities
@@ -55,7 +55,7 @@ Implementer fixes. Reviewer re-reviews. Repeat until approved.
 
 ## Stage 2.5: Reuse and Pattern Review (Large Projects Only)
 
-After code quality passes, and only when working in a large project (monorepo, modular-packages, enterprise codebase), dispatch the reuse-reviewer agent to check:
+After code quality passes, and only when working in a large project (monorepo, modular-packages, enterprise codebase), dispatch the reuse-reviewer agent (`agents/reuse-reviewer.md`) to check:
 
 - Did the implementation reinvent something the project already provides?
 - Does it follow the same patterns as surrounding code (file structure, imports, naming, error handling)?

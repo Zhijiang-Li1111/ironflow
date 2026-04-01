@@ -50,3 +50,11 @@ After making changes based on valid feedback, run tests and verification again. 
 - The suggestion is technically incorrect
 
 When pushing back, provide evidence: point to code, tests, or documentation that supports your position. A respectful technical disagreement is more valuable than blind compliance.
+
+## Completion
+
+After implementing valid fixes:
+
+1. Re-run the relevant serial-review stages on changed files — fixes can introduce new issues or break spec compliance.
+2. Once verification passes, return to finishing-branch to update the PR description or integrate.
+3. For PR feedback specifically, reply to reviewer comments explaining what was addressed and push the updated code. Reviewers need to see their feedback was processed, not just silently fixed.

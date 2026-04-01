@@ -1,7 +1,9 @@
 ---
 name: using-my-workflow
-description: "Use only when the user explicitly asks about the workflow, or asks 'what skills do I have'. This skill is injected automatically via SessionStart hook — do not load it again through the Skill tool during normal work. TRIGGER when: user asks about workflow rules or available skills. DO NOT TRIGGER when: normal task execution, subagent work, or any coding task."
+description: "Workflow constitution for all development tasks. TRIGGER when: user wants to build, create, add, refactor, delete, upgrade, fix, debug, or do any coding/development task. Also triggers for: implementation planning, code review setup, dependency changes, feature removal. DO NOT TRIGGER when: casual conversation, explaining code, answering questions about how something works, or non-coding tasks."
 ---
+
+> **Note:** Auto-injected via SessionStart hook. Do not load again through the Skill tool — it is already in context.
 
 If you were dispatched as a subagent to execute a specific task, skip this skill.
 
@@ -33,7 +35,7 @@ If you catch yourself thinking any of these, pause and check for skills:
 |---------|--------------------------|
 | "This is just a simple question" | Questions are tasks too. A skill may define how to approach it. |
 | "I need more context first" | A skill may tell you how to gather that context. Check first. |
-| "Let me explore the codebase" | The patterns skill tells you how to explore. |
+| "Let me explore the codebase" | Search the project codebase for existing patterns before assuming. |
 | "This doesn't need a formal skill" | If a relevant skill exists, it exists for a reason. |
 | "The skill is overkill" | Simple things become complex. The skill handles that transition. |
 | "I'll just do this one thing first" | Check before doing anything. |
@@ -51,13 +53,13 @@ When multiple skills could apply:
 
 Choose the path based on the task:
 
-**Building something new:** spec-first, then plan-review (with human confirmation), then TDD for implementation, then serial-review, then finishing-branch.
+**Building something new:** spec-first, then plan-review (with human confirmation), then for each task: TDD for implementation followed by serial-review, then finishing-branch.
 
 **Fixing a bug or performance issue:** systematic-debugging to find root cause, then TDD to write a failing test and fix it, then serial-review, then finishing-branch. If during debugging you discover the fix requires changes to public interfaces, data models, or modifications across 3+ files, escalate to spec-first to redesign before continuing.
 
 **Refactoring or improving working code:** use spec-first to define what "better" looks like, then follow the new feature path (through to finishing-branch). If you discover bugs during refactoring, switch to the bug fix path for those specific bugs.
 
-**Deleting code or removing features:** spec-first, plan-review, TDD, serial-review, finishing-branch.
+**Deleting code or removing features:** spec-first, plan-review, then for each task: TDD and serial-review, then finishing-branch.
 
 **Upgrading dependencies or migrating:** spec-first to assess breaking changes, then follow the new feature path (through to finishing-branch).
 
