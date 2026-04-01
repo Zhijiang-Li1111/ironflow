@@ -1,5 +1,10 @@
 # ironflow
 
+[![Built with Claude Code](https://img.shields.io/badge/Built%20with-Claude%20Code-blueviolet?logo=anthropic&logoColor=white)](https://claude.ai/code)
+[![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-blue?logo=anthropic&logoColor=white)](https://github.com/Zhijiang-Li1111/ironflow)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/Zhijiang-Li1111/ironflow?style=social)](https://github.com/Zhijiang-Li1111/ironflow/stargazers)
+
 A Claude Code plugin that enforces a rigorous development workflow: spec-first design, plan with human review, TDD, serial gated review, and structured branch finishing.
 
 ## Install

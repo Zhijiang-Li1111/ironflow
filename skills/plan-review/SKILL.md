@@ -81,13 +81,13 @@ This also applies at the end of implementation: the final summary must list all 
 
 ## Human Review Gate
 
-Present the plan to the user for confirmation. The user may:
-- Adjust priorities
-- Modify scope
-- Change direction
-- Approve and proceed
+Use Claude Code's built-in plan mode (`EnterPlanMode`) to present the plan. This gives the user a structured approval interface where they can review, comment, and approve or reject.
 
-**Do not start implementation until the user confirms the plan.**
+Why: The native plan mode provides a better UX than raw text — the user sees a clear plan with approval controls, and the approval is tracked by the system rather than relying on conversational confirmation.
+
+After the user approves the plan in plan mode, exit plan mode and begin execution.
+
+**Do not start implementation until the user approves the plan.**
 
 ## Execution Handoff
 
