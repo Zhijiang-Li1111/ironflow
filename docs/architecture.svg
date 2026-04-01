@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="940" height="1000" viewBox="0 0 940 1000">
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="1100" viewBox="0 0 940 1100">
   <style>
     .hook-box { fill: #1a1e2e; stroke: #8b5cf6; stroke-width: 2; rx: 8; }
     .skill-box { fill: #1a2332; stroke: #58a6ff; stroke-width: 2; rx: 8; }
@@ -200,50 +200,77 @@
   <line x1="615" y1="610" x2="800" y2="610" class="arrow-dispatch" style="marker-end:none"/>
   <line x1="800" y1="610" x2="800" y2="678" class="arrow-dispatch"/>
 
-  <!-- ==================== PR FEEDBACK LOOP ==================== -->
-  <rect x="20" y="790" width="900" height="90" class="section-bg"/>
-  <text x="40" y="812" class="section-label">PR FEEDBACK LOOP</text>
-  <text x="40" y="825" class="section-sublabel">receiving-review processes feedback, re-verifies, then returns to finishing-branch</text>
+  <!-- ==================== REVIEW FEEDBACK ==================== -->
+  <rect x="20" y="790" width="900" height="180" class="section-bg"/>
+  <text x="40" y="812" class="section-label">REVIEW FEEDBACK</text>
+  <text x="40" y="825" class="section-sublabel">receiving-review processes feedback from ALL sources, then re-verifies via serial-review</text>
 
-  <rect x="350" y="835" width="200" height="38" class="skill-box"/>
-  <text x="450" y="857" class="label">receiving-review</text>
+  <!-- receiving-review box (center) -->
+  <rect x="350" y="860" width="200" height="44" class="skill-box"/>
+  <text x="450" y="876" class="label">receiving-review</text>
+  <text x="450" y="892" class="sublabel">Process all feedback</text>
 
-  <!-- Arrow from finishing-branch (feature path) down to receiving-review -->
-  <path d="M 790 290 L 790 810 L 550 810 L 550 835" class="arrow-feedback"/>
-  <text x="810" y="550" class="loop-label" style="fill:#d29922; writing-mode: tb;">PR feedback</text>
+  <!-- === FEEDBACK SOURCE 1: Reviewer Agents (from serial-review above) === -->
+  <rect x="60" y="845" width="150" height="34" class="agent-box"/>
+  <text x="135" y="856" class="label" style="font-size:11px">Reviewer Agents</text>
+  <text x="135" y="870" class="sublabel">spec-compliance, code-quality, reuse</text>
+  <!-- Arrow from reviewer agents to receiving-review -->
+  <line x1="210" y1="862" x2="350" y2="870" class="arrow-feedback"/>
 
-  <!-- Arrow from finishing-branch (bug path) down to receiving-review -->
-  <path d="M 720 540 L 720 810 L 450 810 L 450 835" class="arrow-feedback"/>
+  <!-- === FEEDBACK SOURCE 2: Human PR Reviewers === -->
+  <rect x="375" y="920" width="150" height="34" class="human-box"/>
+  <text x="450" y="931" class="label" style="font-size:11px">Human PR Reviews</text>
+  <text x="450" y="944" class="sublabel">PR comments after ship</text>
+  <!-- Arrow from human PR reviewers up to receiving-review -->
+  <line x1="450" y1="920" x2="450" y2="904" class="arrow-feedback"/>
 
-  <!-- Arrow back from receiving-review to serial-review -->
-  <path d="M 350 854 L 280 854 L 280 810 L 890 810 L 890 265 L 855 265" class="arrow-feedback"/>
-  <text x="300" y="868" class="loop-label" style="fill:#d29922">re-verify &#x2192; serial-review &#x2192; finishing-branch</text>
+  <!-- === FEEDBACK SOURCE 3: Teammates === -->
+  <rect x="610" y="845" width="130" height="34" class="human-box"/>
+  <text x="675" y="856" class="label" style="font-size:11px">Teammates</text>
+  <text x="675" y="870" class="sublabel">Direct feedback</text>
+  <!-- Arrow from teammates to receiving-review -->
+  <line x1="610" y1="862" x2="550" y2="870" class="arrow-feedback"/>
+
+  <!-- Arrow from finishing-branch (feature path) down to human PR reviews -->
+  <path d="M 790 290 L 790 790 L 530 790 L 530 937 L 525 937" class="arrow-feedback"/>
+  <text x="808" y="540" class="loop-label" style="fill:#d29922; writing-mode: tb;">creates PR</text>
+
+  <!-- Arrow from finishing-branch (bug path) down to human PR reviews -->
+  <path d="M 720 540 L 720 790 L 380 790 L 380 937 L 375 937" class="arrow-feedback"/>
+
+  <!-- Arrow from serial-review dispatched agents down to reviewer agents source box -->
+  <path d="M 445 728 L 445 755 L 135 755 L 135 845" class="arrow-dispatch"/>
+  <text x="290" y="750" class="loop-label" style="fill:#3fb950">issues found by agents</text>
+
+  <!-- Arrow back from receiving-review to serial-review (re-verify) -->
+  <path d="M 350 882 L 280 882 L 280 795 L 900 795 L 900 265 L 855 265" class="arrow-feedback"/>
+  <text x="300" y="896" class="loop-label" style="fill:#d29922">re-verify &#x2192; serial-review &#x2192; finishing-branch</text>
 
   <!-- ==================== CORE PRINCIPLES (cross-cutting) ==================== -->
-  <rect x="20" y="895" width="900" height="55" class="section-bg" style="stroke:#58a6ff; stroke-dasharray: 4 2;"/>
-  <text x="40" y="917" class="section-label" style="fill:#58a6ff;">CROSS-CUTTING PRINCIPLES</text>
-  <text x="40" y="935" class="sublabel" style="text-anchor:start; font-size:11px; fill:#8b949e;">
+  <rect x="20" y="985" width="900" height="55" class="section-bg" style="stroke:#58a6ff; stroke-dasharray: 4 2;"/>
+  <text x="40" y="1007" class="section-label" style="fill:#58a6ff;">CROSS-CUTTING PRINCIPLES</text>
+  <text x="40" y="1025" class="sublabel" style="text-anchor:start; font-size:11px; fill:#8b949e;">
     DRY &amp; YAGNI  |  Follow existing patterns  |  High reuse, no reinventing  |  Evidence before claims  |  Distrust then verify
   </text>
-  <text x="750" y="935" class="sublabel" style="text-anchor:start; font-size:9px; fill:#484f58;">enforced by: reuse-reviewer, code-quality-reviewer, using-my-workflow</text>
+  <text x="750" y="1025" class="sublabel" style="text-anchor:start; font-size:9px; fill:#484f58;">enforced by: reuse-reviewer, code-quality-reviewer, using-my-workflow</text>
 
   <!-- ==================== LEGEND ==================== -->
-  <rect x="20" y="965" width="900" height="30" rx="4" fill="#161b22" stroke="#30363d"/>
-  <text x="40" y="984" class="legend-title">Legend:</text>
-  <rect x="105" y="975" width="12" height="12" rx="2" fill="#1a2332" stroke="#58a6ff" stroke-width="1.5"/>
-  <text x="123" y="984" class="legend">Skill</text>
-  <rect x="170" y="975" width="12" height="12" rx="2" fill="#1a2e1a" stroke="#3fb950" stroke-width="1.5"/>
-  <text x="188" y="984" class="legend">Agent</text>
-  <rect x="235" y="975" width="12" height="12" rx="2" fill="#1a1e2e" stroke="#8b5cf6" stroke-width="1.5"/>
-  <text x="253" y="984" class="legend">Hook</text>
-  <rect x="300" y="975" width="12" height="12" rx="2" fill="#2e2a1a" stroke="#d29922" stroke-width="1.5"/>
-  <text x="318" y="984" class="legend">Human Gate</text>
-  <rect x="400" y="975" width="12" height="12" rx="2" fill="#2e1a1a" stroke="#f85149" stroke-width="1.5"/>
-  <text x="418" y="984" class="legend">Terminal</text>
-  <line x1="480" y1="981" x2="510" y2="981" stroke="#484f58" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-  <text x="518" y="984" class="legend">Flow</text>
-  <line x1="555" y1="981" x2="585" y2="981" stroke="#3fb950" stroke-width="1.5" stroke-dasharray="4 2" marker-end="url(#arrowhead-green)"/>
-  <text x="593" y="984" class="legend">Dispatch</text>
-  <line x1="650" y1="981" x2="680" y2="981" stroke="#d29922" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arrowhead-yellow)"/>
-  <text x="688" y="984" class="legend">Feedback / Loop</text>
+  <rect x="20" y="1055" width="900" height="30" rx="4" fill="#161b22" stroke="#30363d"/>
+  <text x="40" y="1074" class="legend-title">Legend:</text>
+  <rect x="105" y="1065" width="12" height="12" rx="2" fill="#1a2332" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="123" y="1074" class="legend">Skill</text>
+  <rect x="170" y="1065" width="12" height="12" rx="2" fill="#1a2e1a" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="188" y="1074" class="legend">Agent</text>
+  <rect x="235" y="1065" width="12" height="12" rx="2" fill="#1a1e2e" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="253" y="1074" class="legend">Hook</text>
+  <rect x="300" y="1065" width="12" height="12" rx="2" fill="#2e2a1a" stroke="#d29922" stroke-width="1.5"/>
+  <text x="318" y="1074" class="legend">Human Gate</text>
+  <rect x="400" y="1065" width="12" height="12" rx="2" fill="#2e1a1a" stroke="#f85149" stroke-width="1.5"/>
+  <text x="418" y="1074" class="legend">Terminal</text>
+  <line x1="480" y1="1071" x2="510" y2="1071" stroke="#484f58" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <text x="518" y="1074" class="legend">Flow</text>
+  <line x1="555" y1="1071" x2="585" y2="1071" stroke="#3fb950" stroke-width="1.5" stroke-dasharray="4 2" marker-end="url(#arrowhead-green)"/>
+  <text x="593" y="1074" class="legend">Dispatch</text>
+  <line x1="650" y1="1071" x2="680" y2="1071" stroke="#d29922" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arrowhead-yellow)"/>
+  <text x="688" y="1074" class="legend">Feedback / Loop</text>
 </svg>

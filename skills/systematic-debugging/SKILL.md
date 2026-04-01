@@ -1,6 +1,6 @@
 ---
 name: systematic-debugging
-description: "Find the actual root cause instead of guessing — systematic investigation takes 15-30 minutes versus 2-3 hours of trial-and-error. Use when the user reports a bug, a test is failing, a build breaks, something behaves unexpectedly, or performance has degraded. Guides a methodical process: reproduce, trace the data flow, form and test hypotheses one at a time, then fix with TDD. Make sure to use this skill whenever something isn't working as expected, even if the user thinks they already know the cause."
+description: "Find the actual root cause instead of guessing — systematic investigation takes 15-30 minutes versus 2-3 hours of trial-and-error. Use when the user reports a bug, a test is failing, a build breaks, something behaves unexpectedly, or performance has degraded. Make sure to use this skill whenever something isn't working as expected, even if the user thinks they already know the cause."
 ---
 
 # Systematic Debugging

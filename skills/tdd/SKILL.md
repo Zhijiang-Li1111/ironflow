@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: "Catch bugs at the moment code is written, not after. Use when the user wants to implement a feature, fix a bug, or write production code with confidence. The red-green-refactor cycle ensures every behavior starts with a failing test that proves the test checks the right thing. Covers the full TDD cycle including the bug-fix pattern of reproducing failures as tests first. Make sure to use this skill whenever writing production code, even if the change seems small or straightforward."
+description: "Catch bugs at the moment code is written, not after. Use when the user wants to implement a feature, fix a bug, or write production code with confidence. Make sure to use this skill whenever writing production code, even if the change seems small or straightforward."
 ---
 
 # Test-Driven Development

@@ -1,6 +1,6 @@
 ---
 name: receiving-review
-description: "Prevent regressions from blindly implementing review feedback. Use when the user has received review comments on a PR, gotten feedback from teammates, or when subagent reviewers (spec-compliance, code-quality, reuse) return issues that need to be addressed. Verifies each suggestion against the codebase before acting, categorizes comments as valid, unclear, incorrect, or preference-based, and pushes back with evidence when feedback is wrong. Make sure to use this skill whenever review feedback arrives from any source, even if the comments seem straightforward to implement."
+description: "Prevent regressions from blindly implementing review feedback. Use when the user has received review comments on a PR, gotten feedback from teammates, or when subagent reviewers (spec-compliance, code-quality, reuse) return issues that need to be addressed. Make sure to use this skill whenever review feedback arrives from any source, even if the comments seem straightforward to implement."
 ---
 
 # Receiving Code Review Feedback

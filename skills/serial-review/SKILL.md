@@ -1,6 +1,6 @@
 ---
 name: serial-review
-description: "Find blind spots that implementers miss through independent, layered verification. Use when the user has finished implementing a feature or fix and wants thorough verification before integrating. Checks spec compliance, then code quality, then pattern conformance in large projects, then real-world smoke testing — each stage gates the next so effort isn't wasted reviewing code that doesn't meet requirements. Make sure to use this skill whenever implementation is done, even if the user says 'it works, just push it.'"
+description: "Find blind spots that implementers miss through independent, layered verification. Use when the user has finished implementing a feature or fix and wants thorough verification before integrating. Make sure to use this skill whenever implementation is done, even if the user says 'it works, just push it.'"
 ---
 
 # Serial Gated Review

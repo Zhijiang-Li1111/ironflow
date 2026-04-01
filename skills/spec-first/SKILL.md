@@ -1,6 +1,6 @@
 ---
 name: spec-first
-description: "Design before coding to catch misunderstandings before they become expensive rework. Use when the user wants to build a new feature, refactor existing code, remove functionality, redesign a system, or upgrade dependencies. Explores project context, asks clarifying questions, proposes approaches with trade-offs, and produces a written spec with acceptance criteria. Make sure to use this skill whenever the user wants to build or change something, even if they say 'just quickly add' or the task seems simple."
+description: "Design before coding to catch misunderstandings before they become expensive rework. Use when the user wants to build a new feature, refactor existing code, remove functionality, redesign a system, or upgrade dependencies. Make sure to use this skill whenever the user wants to build or change something, even if they say 'just quickly add' or the task seems simple."
 ---
 
 # Spec-First Design

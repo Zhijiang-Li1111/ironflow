@@ -1,6 +1,6 @@
 ---
 name: plan-review
-description: "Turn a design into a precise implementation plan that prevents scope creep and missed requirements. Use when the user has a design or spec ready and wants to plan the implementation, or when moving from design to coding. Breaks work into fine-grained tasks with file mappings and TDD steps so each task is independently executable and verifiable. Make sure to use this skill whenever moving from design to implementation, even if the scope seems small enough to build without a formal plan."
+description: "Turn a design into a precise implementation plan that prevents scope creep and missed requirements. Use when the user has a design or spec ready and wants to plan the implementation, or when moving from design to coding. Make sure to use this skill whenever moving from design to implementation, even if the scope seems small enough to build without a formal plan."
 ---
 
 # Plan with Human Review

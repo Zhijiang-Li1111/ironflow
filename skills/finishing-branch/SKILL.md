@@ -1,6 +1,6 @@
 ---
 name: finishing-branch
-description: "Ensure the user sees and approves what was built before any integration happens. Use when implementation and reviews are complete and the work is ready to be delivered, merged, or shared with the team. Verifies tests pass, presents a clear summary (files changed, tests added, workarounds used), then lets the user choose how to integrate: merge locally, create a PR, keep the branch, or discard. Make sure to use this skill whenever work is ready to ship, even if it's a small change."
+description: "Ensure the user sees and approves what was built before any integration happens. Use when implementation and reviews are complete and the work is ready to be delivered, merged, or shared with the team. Make sure to use this skill whenever work is ready to ship, even if it's a small change."
 ---
 
 # Finishing a Development Branch
