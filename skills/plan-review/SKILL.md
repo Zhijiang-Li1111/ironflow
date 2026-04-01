@@ -1,6 +1,6 @@
 ---
 name: plan-review
-description: "Use when you have an approved spec and need to create an implementation plan before writing code. TRIGGER when: spec is approved and ready for implementation. DO NOT TRIGGER when: no spec exists yet (use spec-first), or user wants to skip planning."
+description: "Turn a design into a precise implementation plan that prevents scope creep and missed requirements. Use when the user has a design or spec ready and wants to plan the implementation, or when moving from design to coding. Breaks work into fine-grained tasks with file mappings and TDD steps so each task is independently executable and verifiable. Make sure to use this skill whenever moving from design to implementation, even if the scope seems small enough to build without a formal plan."
 ---
 
 # Plan with Human Review
@@ -62,7 +62,7 @@ Fix issues inline.
 
 ## Dispatch Plan Reviewer
 
-Dispatch an independent agent to verify:
+Dispatch the `ironflow:plan-reviewer` subagent with the path to the plan document, the approved spec, and the number of tasks. The reviewer verifies:
 - Plan covers all spec requirements
 - Tasks have clear boundaries and are actionable
 - No placeholder content
@@ -87,12 +87,12 @@ Why: The native plan mode provides a better UX than raw text — the user sees a
 
 After the user approves the plan in plan mode, exit plan mode and begin execution.
 
-**Do not start implementation until the user approves the plan.**
+Starting implementation before user approval risks building against a plan the user would have redirected — catching scope problems here is far cheaper than after code exists.
 
 ## Execution Handoff
 
 After user approval, begin implementation:
-- Dispatch a fresh subagent per task
-- Use TDD skill for implementation (write failing test, implement, verify)
-- After each task, invoke serial-review
-- When all tasks complete, invoke finishing-branch to integrate the work
+
+- For each task, dispatch a fresh `general-purpose` subagent with the `tdd` skill, providing the task details, file paths, and spec context.
+- After each task's subagent completes, invoke serial-review to verify the work.
+- When all tasks complete, invoke finishing-branch to integrate the work.

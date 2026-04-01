@@ -1,6 +1,6 @@
 ---
 name: spec-first
-description: "Use before building new functionality, refactoring, removing features, or upgrading dependencies. TRIGGER when: user asks to build, create, add, redesign, refactor, remove/delete a feature, upgrade/migrate dependencies, or when systematic-debugging escalates a bug that needs design changes. DO NOT TRIGGER when: fixing bugs or diagnosing performance issues (use systematic-debugging instead), trivial config edits, or user explicitly says to skip design."
+description: "Design before coding to catch misunderstandings before they become expensive rework. Use when the user wants to build a new feature, refactor existing code, remove functionality, redesign a system, or upgrade dependencies. Explores project context, asks clarifying questions, proposes approaches with trade-offs, and produces a written spec with acceptance criteria. Make sure to use this skill whenever the user wants to build or change something, even if they say 'just quickly add' or the task seems simple."
 ---
 
 # Spec-First Design
@@ -9,9 +9,9 @@ Turn ideas into fully formed designs through collaborative dialogue before writi
 
 Why: Unexamined assumptions on "simple" projects cause the most wasted work. A short design conversation catches misunderstandings before they become rework.
 
-## Hard Gate
+## Design Before Code
 
-Do not write any code, scaffold any project, or invoke implementation skills until a design is presented and the user has approved it. Every project goes through this — even simple ones. The design can be a few sentences for trivial tasks, but it happens.
+Starting implementation before alignment leads to the most expensive kind of rework — building the wrong thing well. Present a design and get user approval before writing code. The design can be a few sentences for trivial tasks, but having the conversation catches misunderstandings early.
 
 ## Process
 
@@ -65,7 +65,7 @@ Fix issues inline, then proceed.
 
 ### 8. Dispatch spec reviewer agent
 
-Dispatch an independent agent to review the spec for completeness, consistency, clarity, scope, and YAGNI. Only flag issues that would cause real problems during implementation — not wording preferences.
+Dispatch the `ironflow:spec-reviewer` subagent with the path to the spec document and the original user request. The reviewer checks for completeness, consistency, clarity, scope, and YAGNI. Only real implementation-blocking issues are flagged — not wording preferences.
 
 ### 9. User reviews written spec
 
@@ -73,7 +73,7 @@ Ask the user to review the spec before proceeding. Wait for approval. If changes
 
 ### 10. Transition to plan
 
-Invoke the plan-review skill. This is the only next step — do not invoke any implementation skill directly.
+Invoke the plan-review skill. Going straight to implementation skips the step that prevents scope creep and missed requirements.
 
 ## Working in Large Projects (Monorepos)
 

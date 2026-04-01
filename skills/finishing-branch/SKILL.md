@@ -1,6 +1,6 @@
 ---
 name: finishing-branch
-description: "Use when implementation is complete, all reviews pass, and you need to integrate the work. TRIGGER when: serial-review passes, all tests green, ready to merge or create PR. DO NOT TRIGGER when: still implementing, reviews haven't passed, or tests are failing."
+description: "Ensure the user sees and approves what was built before any integration happens. Use when implementation and reviews are complete and the work is ready to be delivered, merged, or shared with the team. Verifies tests pass, presents a clear summary (files changed, tests added, workarounds used), then lets the user choose how to integrate: merge locally, create a PR, keep the branch, or discard. Make sure to use this skill whenever work is ready to ship, even if it's a small change."
 ---
 
 # Finishing a Development Branch
@@ -25,7 +25,7 @@ Before taking any action, give the user a clear summary:
 - **Workarounds** — any non-ideal solutions used (from serial-review's workaround summary)
 - **Known issues** — anything worth noting
 
-Wait for the user to review and confirm. The user may have questions, want adjustments, or want to inspect specific files before proceeding. Do not rush to the next step.
+Wait for the user to review and confirm. The user may have questions, want adjustments, or want to inspect specific files before proceeding — rushing past this step means the user loses their chance to catch issues before integration.
 
 ### 3. Present integration options
 
@@ -36,7 +36,7 @@ After user confirms the summary, offer these choices:
 - **Keep the branch as-is** — leave it for now, come back later
 - **Discard this work** — delete the branch and changes
 
-Wait for the user to choose. Do not assume.
+Wait for the user to choose — assuming an integration path can lead to unwanted merges or PRs that are hard to undo.
 
 ### 4. Execute the choice
 
@@ -50,7 +50,7 @@ For **discard**: confirm with the user once more, then delete the branch and cle
 
 ### 5. Clean up
 
-After merging or discarding, clean up the working area (delete the branch if merged, remove worktree if applicable). Do not clean up if the user chose to keep the branch.
+After merging or discarding, clean up the working area (delete the branch if merged, remove worktree if applicable). If the user chose to keep the branch, leave it untouched — cleaning up a branch the user wanted to keep means lost work.
 
 ## Common Mistakes to Avoid
 

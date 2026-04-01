@@ -1,6 +1,6 @@
 ---
 name: serial-review
-description: "Use when implementation is complete and needs review before proceeding. Runs spec compliance, then code quality, then reuse/pattern check (large projects only), then smoke test — in strict sequence. TRIGGER when: a task or feature implementation is done, before marking complete. DO NOT TRIGGER when: still implementing, or user says to skip review."
+description: "Find blind spots that implementers miss through independent, layered verification. Use when the user has finished implementing a feature or fix and wants thorough verification before integrating. Checks spec compliance, then code quality, then pattern conformance in large projects, then real-world smoke testing — each stage gates the next so effort isn't wasted reviewing code that doesn't meet requirements. Make sure to use this skill whenever implementation is done, even if the user says 'it works, just push it.'"
 ---
 
 # Serial Gated Review
@@ -11,7 +11,7 @@ Why: If the implementation doesn't match the spec, reviewing code quality is was
 
 ## Stage 1: Spec Compliance Review
 
-Dispatch an independent agent (`agents/spec-compliance-reviewer.md`) to verify the implementation matches what was requested — nothing more, nothing less.
+Dispatch the `ironflow:spec-compliance-reviewer` subagent with the path to the spec document (or bug report), the list of changed/created files, and a brief summary of what was implemented.
 
 For new features, "what was requested" is the spec document. For bug fixes without a spec, verify against the bug report or issue description — confirm the reported bug is actually fixed and no new regressions are introduced.
 
@@ -32,11 +32,13 @@ The reviewer verifies by reading actual code, not by trusting the implementer's 
 
 ### If issues found
 
-Dispatch the implementer to fix. Then re-review from Stage 1. Do not skip the re-review.
+Dispatch the implementer to fix. Then re-review from Stage 1 — skipping re-review after fixes is how regressions slip through, because fixes often introduce new issues.
 
 ## Stage 2: Code Quality Review
 
-Only after Stage 1 passes. Dispatch a code quality reviewer (`agents/code-quality-reviewer.md`) to check:
+Only after Stage 1 passes — reviewing code quality on an implementation that doesn't match the spec wastes effort. Dispatch the `ironflow:code-quality-reviewer` subagent with the list of changed/created files, the plan's file structure (if available), and any areas of concern from Stage 1.
+
+The reviewer checks:
 
 - Code quality: patterns, error handling, type safety
 - Architecture: separation of concerns, file responsibilities
@@ -55,7 +57,9 @@ Implementer fixes. Reviewer re-reviews. Repeat until approved.
 
 ## Stage 2.5: Reuse and Pattern Review (Large Projects Only)
 
-After code quality passes, and only when working in a large project (monorepo, modular-packages, enterprise codebase), dispatch the reuse-reviewer agent (`agents/reuse-reviewer.md`) to check:
+After code quality passes, and only when working in a large project (monorepo, modular-packages, enterprise codebase). Dispatch the `ironflow:reuse-reviewer` subagent with the list of new files/functions/classes introduced, key directories and packages in the project, and any new dependencies added.
+
+The reviewer checks:
 
 - Did the implementation reinvent something the project already provides?
 - Does it follow the same patterns as surrounding code (file structure, imports, naming, error handling)?
@@ -100,7 +104,7 @@ Subagents report one of four statuses:
 - **BLOCKED** — assess: context problem → provide context. Task too hard → re-dispatch with more capable model. Task too large → break it up. Plan wrong → escalate to human.
 - **NEEDS_CONTEXT** — provide missing context and re-dispatch
 
-Never ignore an escalation or force retry without changes.
+Ignoring an escalation or retrying without changes leads to the same failure — address the underlying issue first.
 
 ## Verification Language
 
@@ -111,7 +115,7 @@ Before claiming any task is complete:
 3. Read full output, check exit code
 4. Does output confirm the claim? Then state it with evidence.
 
-Never use "should work", "probably fine", "seems good". Evidence before claims, always.
+Phrases like "should work", "probably fine", or "seems good" indicate unverified assumptions. State claims with evidence from actual command output.
 
 ## Workaround Summary at Completion
 

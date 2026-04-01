@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: "Use when implementing any feature or bug fix, before writing implementation code. TRIGGER when: about to write production code, implementing a plan task, fixing a bug. DO NOT TRIGGER when: writing config files, throwaway prototypes, or user explicitly says to skip TDD."
+description: "Catch bugs at the moment code is written, not after. Use when the user wants to implement a feature, fix a bug, or write production code with confidence. The red-green-refactor cycle ensures every behavior starts with a failing test that proves the test checks the right thing. Covers the full TDD cycle including the bug-fix pattern of reproducing failures as tests first. Make sure to use this skill whenever writing production code, even if the change seems small or straightforward."
 ---
 
 # Test-Driven Development
@@ -53,7 +53,7 @@ Next failing test for the next behavior.
 
 If you wrote code before the test — delete it. Start over with the test.
 
-"Keep it as reference" is a rationalization. Adapting existing code means you're testing after, not before. Delete means delete.
+"Keep it as reference" leads to adapting existing code to fit the test, which means you're testing after, not before. Start fresh from the test.
 
 | Shortcut | What to do |
 |----------|------------|
@@ -72,7 +72,7 @@ If you wrote code before the test — delete it. Start over with the test.
 4. Verify it passes
 5. Commit
 
-Never fix bugs without a test.
+Fixing bugs without a test means you can't prove the bug is fixed, and it may regress silently later.
 
 ## Verification Checklist
 

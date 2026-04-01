@@ -1,6 +1,6 @@
 ---
 name: receiving-review
-description: "Use when receiving code review feedback from reviewers, teammates, or PR comments, before implementing any suggestions. TRIGGER when: review feedback arrives (from subagent reviewers, human reviewers, or PR comments). DO NOT TRIGGER when: you are the one dispatching a review (use serial-review instead)."
+description: "Prevent regressions from blindly implementing review feedback. Use when the user has received review comments on a PR, gotten feedback from teammates, or needs to respond to code review suggestions. Verifies each suggestion against the codebase before acting, categorizes comments as valid, unclear, incorrect, or preference-based, and pushes back with evidence when feedback is wrong. Make sure to use this skill whenever review feedback arrives, even if the comments seem straightforward to implement."
 ---
 
 # Receiving Code Review Feedback
@@ -26,7 +26,7 @@ Before implementing a suggestion, check whether it's technically correct:
 ### 3. Categorize each item
 
 - **Valid and clear** — implement it
-- **Valid but unclear** — ask for clarification before implementing. Do not guess what the reviewer meant.
+- **Valid but unclear** — ask for clarification before implementing. Guessing at what the reviewer meant leads to implementing the wrong change.
 - **Incorrect** — push back with technical reasoning. Show evidence (code, tests, documentation) for why the current approach is correct.
 - **Preference, not improvement** — acknowledge it, explain why you chose differently, and move on unless the reviewer insists
 
@@ -34,12 +34,12 @@ Before implementing a suggestion, check whether it's technically correct:
 
 After making changes based on valid feedback, run tests and verification again. Review fixes can introduce regressions. If the changes are significant (not just naming or style), re-run the relevant serial-review stages to verify the fixes don't break spec compliance or code quality.
 
-## What Not to Do
+## Common Pitfalls
 
-- Don't say "Great point!" or "You're absolutely right!" — these are performative, not technical
-- Don't implement suggestions you haven't verified — a reviewer can be wrong
-- Don't implement partial fixes — if a suggestion requires changes across multiple places, do all of them or none
-- Don't argue about style preferences — if the project has a convention, follow it; if not, defer to the reviewer on style
+- Performative responses ("Great point!", "You're absolutely right!") waste time and signal compliance over understanding. Respond with technical substance instead.
+- Implementing suggestions without verifying them first risks introducing regressions — reviewers can be wrong, and their suggestions may not account for context they haven't seen.
+- Partial fixes create inconsistency — if a suggestion requires changes across multiple places, apply all of them or none.
+- Style arguments are rarely productive — if the project has a convention, follow it; if not, defer to the reviewer on style.
 
 ## When to Push Back
 

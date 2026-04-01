@@ -1,6 +1,6 @@
 ---
 name: systematic-debugging
-description: "Use when encountering any bug, test failure, performance issue, or unexpected behavior, before proposing fixes. TRIGGER when: user reports a bug, test fails, build breaks, something is slow, something behaves unexpectedly, or user says 'fix this'. DO NOT TRIGGER when: building new features, or user explicitly says the cause is known and just wants the fix."
+description: "Find the actual root cause instead of guessing — systematic investigation takes 15-30 minutes versus 2-3 hours of trial-and-error. Use when the user reports a bug, a test is failing, a build breaks, something behaves unexpectedly, or performance has degraded. Guides a methodical process: reproduce, trace the data flow, form and test hypotheses one at a time, then fix with TDD. Make sure to use this skill whenever something isn't working as expected, even if the user thinks they already know the cause."
 ---
 
 # Systematic Debugging
