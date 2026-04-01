@@ -1,0 +1,9 @@
+# Local files
+.DS_Store
+.vscode/
+architecture.html
+
+# Slides and eval data
+slides/
+ai-coding-evolution-slides.md
+evals/
