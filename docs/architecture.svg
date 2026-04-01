@@ -1,0 +1,249 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="1000" viewBox="0 0 940 1000">
+  <style>
+    .hook-box { fill: #1a1e2e; stroke: #8b5cf6; stroke-width: 2; rx: 8; }
+    .skill-box { fill: #1a2332; stroke: #58a6ff; stroke-width: 2; rx: 8; }
+    .agent-box { fill: #1a2e1a; stroke: #3fb950; stroke-width: 2; rx: 8; }
+    .human-box { fill: #2e2a1a; stroke: #d29922; stroke-width: 2; rx: 8; }
+    .end-box { fill: #2e1a1a; stroke: #f85149; stroke-width: 2; rx: 8; }
+    .section-bg { fill: #161b22; stroke: #30363d; stroke-width: 1; rx: 10; }
+
+    .label { fill: #e6edf3; font-size: 13px; font-weight: 600; text-anchor: middle; dominant-baseline: central; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .sublabel { fill: #8b949e; font-size: 10px; text-anchor: middle; dominant-baseline: central; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .section-label { fill: #e6edf3; font-size: 12px; font-weight: 700; text-anchor: start; letter-spacing: 1px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .section-sublabel { fill: #8b949e; font-size: 10px; text-anchor: start; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+    .arrow { stroke: #484f58; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .arrow-feedback { stroke: #d29922; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead-yellow); stroke-dasharray: 6 3; }
+    .arrow-dispatch { stroke: #3fb950; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead-green); stroke-dasharray: 4 2; }
+    .arrow-hook { stroke: #8b5cf6; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead-purple); }
+
+    .loop-label { fill: #8b949e; font-size: 10px; text-anchor: middle; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .legend { font-size: 11px; fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .legend-title { font-size: 12px; fill: #e6edf3; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  </style>
+
+  <rect width="100%" height="100%" fill="#0d1117"/>
+
+  <text x="470" y="35" fill="#58a6ff" font-size="24px" font-weight="bold" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">IronFlow Architecture</text>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#484f58"/>
+    </marker>
+    <marker id="arrowhead-yellow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#d29922"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3fb950"/>
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#8b5cf6"/>
+    </marker>
+  </defs>
+
+  <!-- ==================== HOOK SECTION ==================== -->
+  <rect x="20" y="60" width="900" height="80" class="section-bg"/>
+  <text x="40" y="82" class="section-label">HOOK INJECTION</text>
+
+  <rect x="40" y="92" width="150" height="38" class="hook-box"/>
+  <text x="115" y="114" class="label">SessionStart</text>
+
+  <line x1="190" y1="111" x2="230" y2="111" class="arrow-hook"/>
+
+  <rect x="230" y="92" width="200" height="38" class="hook-box"/>
+  <text x="330" y="105" class="label">Workflow Constitution</text>
+  <text x="330" y="120" class="sublabel">using-my-workflow (auto-injected)</text>
+
+  <text x="460" y="114" class="loop-label">routes to path:</text>
+
+  <!-- Arrows to both paths -->
+  <line x1="540" y1="111" x2="540" y2="170" class="arrow"/>
+  <line x1="540" y1="170" x2="200" y2="170" class="arrow" style="marker-end: none"/>
+  <line x1="200" y1="170" x2="200" y2="190" class="arrow"/>
+  <line x1="540" y1="170" x2="540" y2="420" class="arrow" style="marker-end: none"/>
+  <line x1="540" y1="420" x2="200" y2="420" class="arrow" style="marker-end: none"/>
+  <line x1="200" y1="420" x2="200" y2="440" class="arrow"/>
+
+  <!-- ==================== NEW FEATURE PATH ==================== -->
+  <rect x="20" y="190" width="900" height="180" class="section-bg"/>
+  <text x="40" y="212" class="section-label">NEW FEATURE / REFACTOR / DELETE / UPGRADE</text>
+  <text x="40" y="225" class="section-sublabel">spec-first &#x2192; plan-review &#x2192; per-task: TDD + serial-review &#x2192; finishing-branch</text>
+
+  <!-- spec-first -->
+  <rect x="40" y="240" width="130" height="50" class="skill-box"/>
+  <text x="105" y="258" class="label">spec-first</text>
+  <text x="105" y="273" class="sublabel">Design before code</text>
+
+  <line x1="170" y1="265" x2="200" y2="265" class="arrow"/>
+
+  <!-- plan-review -->
+  <rect x="200" y="240" width="130" height="50" class="skill-box"/>
+  <text x="265" y="258" class="label">plan-review</text>
+  <text x="265" y="273" class="sublabel">Break into tasks</text>
+
+  <!-- Human gate under plan-review -->
+  <rect x="225" y="298" width="80" height="24" class="human-box"/>
+  <text x="265" y="312" class="label" style="font-size:10px">Human Gate</text>
+  <line x1="265" y1="290" x2="265" y2="298" class="arrow-feedback"/>
+
+  <line x1="330" y1="265" x2="370" y2="265" class="arrow"/>
+
+  <!-- Per-task bracket -->
+  <rect x="365" y="235" width="340" height="60" rx="6" fill="none" stroke="#484f58" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="535" y="232" class="loop-label" style="font-size:9px">per task</text>
+
+  <!-- TDD (includes implementation) -->
+  <rect x="375" y="240" width="130" height="50" class="skill-box"/>
+  <text x="440" y="255" class="label">tdd</text>
+  <text x="440" y="268" class="sublabel">Test &#x2192; Implement &#x2192;</text>
+  <text x="440" y="280" class="sublabel">Refactor</text>
+
+  <line x1="505" y1="265" x2="535" y2="265" class="arrow"/>
+
+  <!-- serial-review -->
+  <rect x="535" y="240" width="160" height="50" class="skill-box"/>
+  <text x="615" y="258" class="label">serial-review</text>
+  <text x="615" y="273" class="sublabel">4-stage gated review</text>
+
+  <!-- Per-task loop arrow -->
+  <path d="M 615 290 L 615 310 L 440 310 L 440 290" class="arrow-feedback"/>
+  <text x="528" y="323" class="loop-label">next task</text>
+
+  <line x1="695" y1="265" x2="730" y2="265" class="arrow"/>
+
+  <!-- finishing-branch -->
+  <rect x="730" y="240" width="120" height="50" class="end-box"/>
+  <text x="790" y="258" class="label">finishing-branch</text>
+  <text x="790" y="273" class="sublabel">Ship / PR</text>
+
+  <!-- ==================== BUG FIX PATH ==================== -->
+  <rect x="20" y="440" width="900" height="150" class="section-bg"/>
+  <text x="40" y="462" class="section-label">BUG FIX / PERFORMANCE ISSUE</text>
+  <text x="40" y="475" class="section-sublabel">systematic-debugging &#x2192; tdd &#x2192; serial-review &#x2192; finishing-branch</text>
+
+  <!-- systematic-debugging -->
+  <rect x="40" y="490" width="180" height="50" class="skill-box"/>
+  <text x="130" y="508" class="label">systematic-debugging</text>
+  <text x="130" y="523" class="sublabel">Find root cause first</text>
+
+  <line x1="220" y1="515" x2="270" y2="515" class="arrow"/>
+
+  <!-- tdd -->
+  <rect x="270" y="490" width="130" height="50" class="skill-box"/>
+  <text x="335" y="505" class="label">tdd</text>
+  <text x="335" y="518" class="sublabel">Test &#x2192; Fix &#x2192;</text>
+  <text x="335" y="530" class="sublabel">Verify</text>
+
+  <line x1="400" y1="515" x2="450" y2="515" class="arrow"/>
+
+  <!-- serial-review -->
+  <rect x="450" y="490" width="160" height="50" class="skill-box"/>
+  <text x="530" y="508" class="label">serial-review</text>
+  <text x="530" y="523" class="sublabel">Verify fix</text>
+
+  <line x1="610" y1="515" x2="660" y2="515" class="arrow"/>
+
+  <!-- finishing-branch -->
+  <rect x="660" y="490" width="120" height="50" class="end-box"/>
+  <text x="720" y="508" class="label">finishing-branch</text>
+  <text x="720" y="523" class="sublabel">Ship / PR</text>
+
+  <!-- Escalation arrow from debugging to spec-first -->
+  <path d="M 130 490 L 130 400 L 105 400 L 105 290" class="arrow-feedback"/>
+  <text x="60" y="395" class="loop-label" style="fill:#d29922">escalate if</text>
+  <text x="60" y="407" class="loop-label" style="fill:#d29922">architectural</text>
+
+  <!-- ==================== AGENTS SECTION ==================== -->
+  <rect x="20" y="630" width="900" height="120" class="section-bg"/>
+  <text x="40" y="652" class="section-label">INDEPENDENT REVIEWER AGENTS</text>
+  <text x="40" y="665" class="section-sublabel">Dispatched by skills. Adversarial — job is to find problems, not confirm.</text>
+
+  <!-- Spec reviewer -->
+  <rect x="40" y="678" width="140" height="50" class="agent-box"/>
+  <text x="110" y="696" class="label" style="font-size:11px">spec-reviewer</text>
+  <text x="110" y="711" class="sublabel">Review spec</text>
+
+  <!-- Plan reviewer -->
+  <rect x="200" y="678" width="140" height="50" class="agent-box"/>
+  <text x="270" y="696" class="label" style="font-size:11px">plan-reviewer</text>
+  <text x="270" y="711" class="sublabel">Review plan</text>
+
+  <!-- Spec compliance -->
+  <rect x="360" y="678" width="170" height="50" class="agent-box"/>
+  <text x="445" y="696" class="label" style="font-size:11px">spec-compliance</text>
+  <text x="445" y="711" class="sublabel">Stage 1: Match spec?</text>
+
+  <!-- Code quality -->
+  <rect x="550" y="678" width="160" height="50" class="agent-box"/>
+  <text x="630" y="696" class="label" style="font-size:11px">code-quality</text>
+  <text x="630" y="711" class="sublabel">Stage 2: Quality</text>
+
+  <!-- Reuse reviewer -->
+  <rect x="730" y="678" width="140" height="50" class="agent-box"/>
+  <text x="800" y="696" class="label" style="font-size:11px">reuse-reviewer</text>
+  <text x="800" y="711" class="sublabel">Stage 2.5: Patterns</text>
+
+  <!-- Dispatch arrows -->
+  <line x1="105" y1="290" x2="105" y2="610" class="arrow-dispatch" style="marker-end:none"/>
+  <line x1="105" y1="610" x2="110" y2="610" class="arrow-dispatch" style="marker-end:none"/>
+  <line x1="110" y1="610" x2="110" y2="678" class="arrow-dispatch"/>
+
+  <line x1="265" y1="290" x2="265" y2="605" class="arrow-dispatch" style="marker-end:none"/>
+  <line x1="265" y1="605" x2="270" y2="605" class="arrow-dispatch" style="marker-end:none"/>
+  <line x1="270" y1="605" x2="270" y2="678" class="arrow-dispatch"/>
+
+  <line x1="615" y1="290" x2="615" y2="610" class="arrow-dispatch" style="marker-end:none"/>
+  <line x1="615" y1="610" x2="445" y2="610" class="arrow-dispatch" style="marker-end:none"/>
+  <line x1="445" y1="610" x2="445" y2="678" class="arrow-dispatch"/>
+  <line x1="615" y1="610" x2="630" y2="610" class="arrow-dispatch" style="marker-end:none"/>
+  <line x1="630" y1="610" x2="630" y2="678" class="arrow-dispatch"/>
+  <line x1="615" y1="610" x2="800" y2="610" class="arrow-dispatch" style="marker-end:none"/>
+  <line x1="800" y1="610" x2="800" y2="678" class="arrow-dispatch"/>
+
+  <!-- ==================== PR FEEDBACK LOOP ==================== -->
+  <rect x="20" y="790" width="900" height="90" class="section-bg"/>
+  <text x="40" y="812" class="section-label">PR FEEDBACK LOOP</text>
+  <text x="40" y="825" class="section-sublabel">receiving-review processes feedback, re-verifies, then returns to finishing-branch</text>
+
+  <rect x="350" y="835" width="200" height="38" class="skill-box"/>
+  <text x="450" y="857" class="label">receiving-review</text>
+
+  <!-- Arrow from finishing-branch (feature path) down to receiving-review -->
+  <path d="M 790 290 L 790 810 L 550 810 L 550 835" class="arrow-feedback"/>
+  <text x="810" y="550" class="loop-label" style="fill:#d29922; writing-mode: tb;">PR feedback</text>
+
+  <!-- Arrow from finishing-branch (bug path) down to receiving-review -->
+  <path d="M 720 540 L 720 810 L 450 810 L 450 835" class="arrow-feedback"/>
+
+  <!-- Arrow back from receiving-review to serial-review -->
+  <path d="M 350 854 L 280 854 L 280 810 L 890 810 L 890 265 L 855 265" class="arrow-feedback"/>
+  <text x="300" y="868" class="loop-label" style="fill:#d29922">re-verify &#x2192; serial-review &#x2192; finishing-branch</text>
+
+  <!-- ==================== CORE PRINCIPLES (cross-cutting) ==================== -->
+  <rect x="20" y="895" width="900" height="55" class="section-bg" style="stroke:#58a6ff; stroke-dasharray: 4 2;"/>
+  <text x="40" y="917" class="section-label" style="fill:#58a6ff;">CROSS-CUTTING PRINCIPLES</text>
+  <text x="40" y="935" class="sublabel" style="text-anchor:start; font-size:11px; fill:#8b949e;">
+    DRY &amp; YAGNI  |  Follow existing patterns  |  High reuse, no reinventing  |  Evidence before claims  |  Distrust then verify
+  </text>
+  <text x="750" y="935" class="sublabel" style="text-anchor:start; font-size:9px; fill:#484f58;">enforced by: reuse-reviewer, code-quality-reviewer, using-my-workflow</text>
+
+  <!-- ==================== LEGEND ==================== -->
+  <rect x="20" y="965" width="900" height="30" rx="4" fill="#161b22" stroke="#30363d"/>
+  <text x="40" y="984" class="legend-title">Legend:</text>
+  <rect x="105" y="975" width="12" height="12" rx="2" fill="#1a2332" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="123" y="984" class="legend">Skill</text>
+  <rect x="170" y="975" width="12" height="12" rx="2" fill="#1a2e1a" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="188" y="984" class="legend">Agent</text>
+  <rect x="235" y="975" width="12" height="12" rx="2" fill="#1a1e2e" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="253" y="984" class="legend">Hook</text>
+  <rect x="300" y="975" width="12" height="12" rx="2" fill="#2e2a1a" stroke="#d29922" stroke-width="1.5"/>
+  <text x="318" y="984" class="legend">Human Gate</text>
+  <rect x="400" y="975" width="12" height="12" rx="2" fill="#2e1a1a" stroke="#f85149" stroke-width="1.5"/>
+  <text x="418" y="984" class="legend">Terminal</text>
+  <line x1="480" y1="981" x2="510" y2="981" stroke="#484f58" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <text x="518" y="984" class="legend">Flow</text>
+  <line x1="555" y1="981" x2="585" y2="981" stroke="#3fb950" stroke-width="1.5" stroke-dasharray="4 2" marker-end="url(#arrowhead-green)"/>
+  <text x="593" y="984" class="legend">Dispatch</text>
+  <line x1="650" y1="981" x2="680" y2="981" stroke="#d29922" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arrowhead-yellow)"/>
+  <text x="688" y="984" class="legend">Feedback / Loop</text>
+</svg>

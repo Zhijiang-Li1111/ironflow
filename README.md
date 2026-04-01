@@ -45,6 +45,10 @@ systematic-debugging → TDD → serial-review → finishing-branch
 
 Decomposed into separate tasks. Bug fix path runs first, then new feature path. Each ends with finishing-branch.
 
+## Architecture
+
+![IronFlow Architecture](docs/architecture.svg)
+
 ## Skills
 
 | Skill | When It Triggers |
