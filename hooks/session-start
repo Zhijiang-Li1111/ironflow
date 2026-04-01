@@ -21,7 +21,7 @@ escape_for_json() {
 }
 
 constitution_escaped=$(escape_for_json "$constitution_content")
-session_context="<workflow-constitution>\nYou are working with a developer who follows a structured workflow (spec-first, plan-review, TDD, serial-review).\n\nBelow is the full content of the 'my-workflow:using-my-workflow' skill — your workflow constitution. For all other skills, use the 'Skill' tool:\n\n${constitution_escaped}\n</workflow-constitution>"
+session_context="<workflow-constitution>\nYou are working with a developer who follows a structured workflow (spec-first, plan-review, TDD, serial-review).\n\nBelow is the full content of the 'ironflow:using-my-workflow' skill — your workflow constitution. For all other skills, use the 'Skill' tool:\n\n${constitution_escaped}\n</workflow-constitution>"
 
 if [ -n "${CURSOR_PLUGIN_ROOT:-}" ]; then
   printf '{\n  "additional_context": "%s"\n}\n' "$session_context"
