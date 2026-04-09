@@ -50,7 +50,14 @@ Design for isolation: each unit should have one clear purpose, communicate throu
 
 ### 6. Write the spec document
 
-Save to `spec/` directory using `{index}-{name}/spec.md` format (e.g., `spec/002-todo-extraction/spec.md`). Include: spec description, task breakdown, acceptance criteria.
+Determine where specs live in this project:
+
+1. **Check project memory** — look for a saved spec directory preference.
+2. **Scan for existing spec directories** — look for `spec/`, `specs/`, `docs/spec/`, `docs/specs/`, `docs/design/`, or `design/` in the project root.
+3. **If found** — use the existing directory. If multiple exist, use the one that already contains spec files.
+4. **If none exists** — ask the user where specs should be stored. Save their choice to project memory so future sessions use the same location.
+
+Save using `{index}-{name}/spec.md` format within the chosen directory (e.g., `docs/spec/002-todo-extraction/spec.md`). Include: spec description, task breakdown, acceptance criteria.
 
 ### 7. Spec self-review
 
