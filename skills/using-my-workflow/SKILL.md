@@ -53,6 +53,16 @@ Different tasks benefit from different subsets of the workflow. Use your judgmen
 
 **Mixed tasks (e.g., "add X and fix Y")** — Decompose into separate tasks. Handle bug fixes first — they may affect the new feature design, and fixing bugs in code you're about to build on prevents compounding problems. Each task follows its own path.
 
+**User changes requirements during implementation** — This is normal and expected. Assess the scope of the change before acting:
+
+- *Minor adjustment* (typo, config value, cosmetic tweak) — proceed directly in code.
+- *Requirement change* (new behavior, changed scope, different design direction) — pause implementation. Update the spec (spec-first) to reflect the new requirement, re-plan affected tasks (plan-review), then resume. Changing code without updating the spec creates drift — the spec stops being the source of truth, and review can't catch misalignment it doesn't know about.
+- *Uncertain* — ask the user: "This looks like it changes the original requirement — should I update the spec first, or treat it as a quick adjustment?"
+
+This follows the same logic as discovering architectural changes during a bug fix: when the scope exceeds what the current phase can safely contain, step back to the appropriate earlier phase.
+
+**Reverting changes** — When the user asks to undo or revert work, use `git diff` (or `git diff --name-only`) to find all changed files rather than relying on memory. Context is finite and files get forgotten — evidence-based reversion prevents incomplete rollbacks. Use `git checkout`/`git restore` for uncommitted changes, or `git revert` for committed work, rather than manually editing files back. Verify the revert is complete by checking that the diff against the intended baseline is clean before reporting done.
+
 ## When to Reach for a Skill
 
 Before starting development work, consider whether a skill would help with the current step. The skills are organized by the phase of work they support:
