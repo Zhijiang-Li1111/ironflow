@@ -95,4 +95,4 @@ After user approval, begin implementation:
 
 - For each task, dispatch a fresh `general-purpose` subagent with the `tdd` skill, providing the task details, file paths, and spec context.
 - After each task's subagent completes, invoke serial-review to verify the work.
-- When all tasks complete, invoke finishing-branch to integrate the work.
+- When all tasks complete, invoke finishing-task to integrate the work.

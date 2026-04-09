@@ -56,5 +56,5 @@ When pushing back, provide evidence: point to code, tests, or documentation that
 After implementing valid fixes:
 
 1. Re-run the relevant serial-review stages on changed files — fixes can introduce new issues or break spec compliance.
-2. Once verification passes, return to finishing-branch to update the PR description or integrate.
+2. Once verification passes, return to finishing-task to update the PR description or integrate.
 3. For PR feedback specifically, reply to reviewer comments explaining what was addressed and push the updated code. Reviewers need to see their feedback was processed, not just silently fixed.
