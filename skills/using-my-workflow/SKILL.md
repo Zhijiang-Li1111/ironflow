@@ -77,7 +77,7 @@ If you're unsure whether a skill applies, it's worth loading it — you can alwa
 
 ## Branching and Isolation
 
-Before making any changes to the repo (writing specs, plans, or code), ask the user to choose an isolation style for this task. Check project memory first — the user may have saved a preference, but they can override it per task.
+**You must have an isolation style confirmed before making any changes to the repo.** No file writes (specs, plans, or code) until this is resolved. Check project memory first — the user may have saved a preference, but they can override it per task. If no preference is saved, use `AskUserQuestion` to ask the user to choose. Do not proceed until the user has confirmed.
 
 - **Worktree** — creates a new worktree and branch via `EnterWorktree`. Enables parallel work in isolated workspaces while the main worktree stays clean. Notify the user before creating the worktree and wait for confirmation.
 - **Branch only** — creates a new branch from the default branch. All work happens in the current working directory on the task branch.
@@ -85,7 +85,7 @@ Before making any changes to the repo (writing specs, plans, or code), ask the u
 Both styles share these rules:
 
 - **One task = one branch** — all artifacts for a task (specs, plans, code, tests) live on the task's branch.
-- **Know the default branch** — the default branch is where PRs merge into and where task branches are based from. Check project memory for this. If not saved, ask the user and save it to project memory.
+- **Know the default branch** — the default branch is where PRs merge into and where task branches are based from. Derive it from `origin/HEAD`. If `origin/HEAD` is not set (e.g., no remote), ask the user.
 - **finishing-task handles cleanup** — for worktree style, delivering the branch and exiting the worktree are one lifecycle. For branch style, delivering the branch and switching back to the default branch are one lifecycle.
 
 ## Core Principles
@@ -94,6 +94,7 @@ These apply across all phases:
 
 - **DRY, YAGNI** — high reuse, no over-engineering, elegant abstractions only when needed
 - **Follow existing patterns** — search the project first, never hand-craft what already exists. This is a common source of wasted work — the project almost certainly has what you need
+- **Use tools to collect user input** — when asking the user a question or requesting confirmation, prefer `AskUserQuestion` over inline text questions. This ensures the user sees a clear prompt and the workflow blocks until they respond.
 - **Evidence before claims** — run verification, read output, then claim. Phrases like "should work" or "seems fine" indicate unverified assumptions
 - **Reviewers verify independently** — read the actual code rather than trusting self-reports
 
