@@ -1,42 +1,64 @@
 ---
-name: serial-review
-description: "Find blind spots that implementers miss through independent, layered verification. Use when the user has finished implementing a feature or fix and wants thorough verification before integrating. Make sure to use this skill whenever implementation is done, even if the user says 'it works, just push it.'"
+name: gated-review
+description: "Find blind spots that implementers miss through independent, layered verification. Use when the user has finished implementing a feature or fix and wants thorough verification before integrating. Make sure to use this skill whenever implementation is done, even if the user says 'it works, just push it.' DO NOT TRIGGER for: typo-only fixes, README/documentation-only changes, config file changes, formatting/linting commits, or dependency version bumps with no code changes."
 ---
 
-# Serial Gated Review
+# Parallel + Serial Gated Review
 
-Review in strict order: spec compliance, then code quality, then reuse/pattern review (large projects only), then smoke test. Each stage must pass before the next begins.
+You are the orchestrator agent responsible for driving the review process. You dispatch reviewer subagents, collect their findings, coordinate fixes with the implementer, and gate progression between phases.
 
-Why: If the implementation doesn't match the spec, reviewing code quality is wasted effort. If the code isn't solid, smoke testing it is premature. Serial gating prevents wasted work at each stage.
+## Overview
 
-## Stage 1: Spec Compliance Review
+```
+Phase 1 — Parallel Code Review
+  1A Spec Compliance  ──┐
+  1B Code Quality      ──┼── dispatch simultaneously, merge results
+  1C Reuse (large only)──┘
+  → issues found? → implementer fixes → run tests → re-review
+  → all pass? → proceed
 
-Dispatch the `ironflow:spec-compliance-reviewer` subagent with the path to the spec document (or bug report), the list of changed/created files, and a brief summary of what was implemented.
+Phase 2 — Serial Verification
+  2A UT Full Regression → 2B Smoke Test
+```
 
-For new features, "what was requested" is the spec document. For bug fixes without a spec, verify against the bug report or issue description — confirm the reported bug is actually fixed and no new regressions are introduced.
+## Phase 1: Parallel Code Review
 
-### What the reviewer checks
+Dispatch all applicable reviewers simultaneously using the coding-agent skill or sessions_spawn. They examine the same code independently — their concerns don't overlap, so results don't conflict.
+
+### Stage 1A: Spec Compliance Review
+
+Dispatch the `ironflow:spec-compliance-reviewer` subagent.
+
+**Parameters:**
+- `spec_path` (string, required): path to the spec document or bug report
+- `changed_files` (list[string], required): file paths that were changed or created
+- `summary` (string, required): one-paragraph description of what was implemented
+
+For new features, `spec_path` points to the spec document. For bug fixes without a spec, point to the bug report or issue description.
+
+#### What the reviewer checks
 
 - **Missing requirements** — did the implementer skip or miss anything?
 - **Extra work** — did they build things not in the spec?
 - **Misunderstandings** — did they interpret requirements differently than intended?
 
-### The distrust principle
+#### The distrust principle
 
 The reviewer verifies by reading actual code, not by trusting the implementer's report. Implementers may report optimistically — finish quickly and claim everything works. The reviewer reads the code independently and compares against requirements line by line.
 
-### Output
+#### Output
 
-- Spec compliant — proceed to Stage 2
-- Issues found — list specifically what's missing or extra, with file:line references
+- **Pass**: "Spec compliant — no issues found."
+- **Fail**: List of issues, each with: description, severity (Critical/Important/Minor), file:line reference.
 
-### If issues found
+### Stage 1B: Code Quality Review
 
-Dispatch the implementer to fix. Then re-review from Stage 1 — skipping re-review after fixes is how regressions slip through, because fixes often introduce new issues.
+Dispatch the `ironflow:code-quality-reviewer` subagent.
 
-## Stage 2: Code Quality Review
-
-Only after Stage 1 passes — reviewing code quality on an implementation that doesn't match the spec wastes effort. Dispatch the `ironflow:code-quality-reviewer` subagent with the list of changed/created files, the plan's file structure (if available), and any areas of concern from Stage 1.
+**Parameters:**
+- `changed_files` (list[string], required): file paths that were changed or created
+- `file_structure` (string, optional): the plan's file structure, if available
+- `concerns` (string, optional): any areas of concern to focus on
 
 The reviewer checks:
 
@@ -45,19 +67,27 @@ The reviewer checks:
 - Testing: tests verify behavior, coverage adequate
 - Plan alignment: matches the file structure from the plan
 
-### Severity levels
+#### Severity levels
 
 - **Critical** — bugs, security risks, data loss. Fix immediately.
 - **Important** — architecture issues, missing functionality. Fix before proceeding.
 - **Minor** — style, naming, minor optimizations. Note for later.
 
-### If issues found
+#### Output
 
-Implementer fixes. Reviewer re-reviews. Repeat until approved.
+- **Pass**: "Code quality approved — no issues found."
+- **Fail**: List of issues, each with: description, severity, file:line reference, suggested fix.
 
-## Stage 2.5: Reuse and Pattern Review (Large Projects Only)
+### Stage 1C: Reuse and Pattern Review (Large Projects Only)
 
-After code quality passes, and only when working in a large project (monorepo, modular-packages, enterprise codebase). Dispatch the `ironflow:reuse-reviewer` subagent with the list of new files/functions/classes introduced, key directories and packages in the project, and any new dependencies added.
+Only for large projects (monorepo, modular-packages, enterprise codebase). Skip for small or personal projects.
+
+Dispatch the `ironflow:reuse-reviewer` subagent.
+
+**Parameters:**
+- `new_items` (list[string], required): new files, functions, or classes introduced
+- `key_directories` (list[string], required): key directories and packages in the project
+- `new_dependencies` (list[string], optional): any new dependencies added
 
 The reviewer checks:
 
@@ -65,31 +95,64 @@ The reviewer checks:
 - Does it follow the same patterns as surrounding code (file structure, imports, naming, error handling)?
 - Were any new dependencies introduced that the project already has equivalents for?
 
-Skip this stage for small or personal projects.
+#### Output
 
-If issues are found, the implementer fixes them and the reuse reviewer re-reviews.
+- **Pass**: "No reuse or pattern issues found."
+- **Fail**: List of issues, each with: what was reinvented, where the existing equivalent lives, suggested change.
 
-## Stage 3: Smoke Test
+### Merging Phase 1 Results
 
-Only after all previous stages pass (Stage 2, and Stage 2.5 if applicable). This is not about unit tests passing — it's about real-world verification.
+Wait for all dispatched reviewers to complete. Collect all issues into a single list, deduplicate, and prioritize by severity (Critical > Important > Minor).
+
+If all reviewers pass with no issues: proceed to Phase 2.
+
+If any reviewer found issues: fix all issues in a single pass, then apply the Fix-then-Retest Rule.
+
+### Fix-then-Retest Rule
+
+Review-stage code changes happen outside TDD discipline and can introduce regressions. After fixing any issues found during Phase 1:
+
+1. Run the full test suite
+2. All tests must pass before re-dispatching reviewers
+3. Re-dispatch only the reviewers that originally found issues
+4. Repeat until all reviewers pass
+
+Never skip the test run between fixing and re-reviewing — this is how review-stage regressions slip through undetected.
+
+## Phase 2: Serial Verification
+
+Only after all Phase 1 reviewers pass. This phase runs sequentially — each gate depends on the previous one.
+
+### Stage 2A: UT Full Regression
+
+Run the complete test suite — not just tests related to changed files, but the entire suite.
+
+Why: TDD during implementation ensures tests exist and pass for new code. But Phase 1 review fixes happen outside TDD discipline — a reviewer might flag an issue, the implementer fixes it without writing a new test, and that fix silently breaks something elsewhere. A full regression run catches this.
+
+- All tests pass → proceed to Stage 2B
+- Any test fails → fix, re-run full suite, repeat until green
+
+### Stage 2B: Smoke Test
+
+Only after Stage 2A passes. This is not about unit tests passing — it's about real-world verification.
 
 Why: pytest passing doesn't mean the feature works end-to-end. A real user would hit the endpoint, open the page, or run the actual command. You need to do that too.
 
-### Process
+#### Process
 
 1. Identify what a real user would do to verify this feature works
 2. Do it yourself — curl the endpoint, visit the page, run the CLI command, interact with the UI
 3. Confirm the behavior matches expectations
 4. If anything is wrong, fix and re-run from the appropriate stage
 
-### What counts as smoke testing
+#### What counts as smoke testing
 
 - Calling an API endpoint and checking the response
 - Opening a web page and verifying the UI
 - Running the actual CLI command with real arguments
 - Triggering the workflow end-to-end with real data
 
-### What does NOT count
+#### What does NOT count
 
 - "pytest passed"
 - "the code looks correct"
@@ -99,7 +162,7 @@ Why: pytest passing doesn't mean the feature works end-to-end. A real user would
 
 Subagents report one of four statuses:
 
-- **DONE** — proceed to spec review
+- **DONE** — proceed to review
 - **DONE_WITH_CONCERNS** — read concerns first. If about correctness, address before review. If observations, note and proceed.
 - **BLOCKED** — assess: context problem → provide context. Task too hard → re-dispatch with more capable model. Task too large → break it up. Plan wrong → escalate to human.
 - **NEEDS_CONTEXT** — provide missing context and re-dispatch
@@ -125,12 +188,13 @@ If there are no workarounds, skip this section.
 
 ## Next Step
 
-After all review stages pass and the workaround summary is presented, invoke the finishing-branch skill to integrate the work.
+After all review stages pass and the workaround summary is presented, invoke the `ironflow:finishing-branch` skill to create the integration branch and prepare for merge.
 
 ## Red Flags
 
-- Starting code quality review before spec compliance passes
-- Starting smoke test before code quality passes
+- Running Phase 2 before all Phase 1 reviewers pass
+- Skipping UT regression before smoke test
+- Not running tests after review-stage code changes
 - Skipping re-review after fixes
 - Trusting implementer's self-report without independent verification
 - Proceeding with unfixed Important or Critical issues
