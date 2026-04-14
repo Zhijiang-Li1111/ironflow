@@ -17,12 +17,14 @@ Why: If you didn't watch the test fail, you don't know if it tests the right thi
 - Clear name that describes the behavior
 - Use real code, not mocks (unless unavoidable)
 
+In compiled/typed languages, the test won't build if the system under test doesn't exist yet. Create a minimal stub — just the signature with an empty body, zero return value, or `notImplemented` throw. The goal is to make the code compile so the test can actually run and fail.
+
 ### Verify RED — Run and confirm failure
 
 Run the test. Confirm:
-- It fails (not errors from typos)
+- It fails (not errors from typos or missing imports)
 - The failure message is what you expect
-- It fails because the feature is missing
+- It fails because the behavior is missing, not because the code doesn't compile
 
 If the test passes immediately, you're testing existing behavior. Fix the test.
 
