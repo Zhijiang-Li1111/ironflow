@@ -67,9 +67,13 @@ Fix issues inline, then proceed.
 
 Dispatch the `ironflow:spec-reviewer` subagent with the path to the spec document and the original user request. The reviewer checks for completeness, consistency, clarity, scope, and YAGNI. Only real implementation-blocking issues are flagged — not wording preferences.
 
+If the reviewer flags issues, evaluate each one before acting — reviewers can be wrong or missing context. Use the receiving-review approach for evaluating each finding. Focus on issues that would block implementation — ambiguities, missing requirements, scope problems, contradictions. Minor issues (wording, formatting) that don't affect implementation correctness don't need to block progress.
+
+After fixing valid issues, re-dispatch the reviewer. Repeat until the reviewer passes or only minor issues remain. Skipping re-review after fixes is how issues slip through, because fixes often introduce new problems.
+
 ### 9. User reviews written spec
 
-Ask the user to review the spec before proceeding. Wait for approval. If changes are requested, make them and re-review.
+Only after the spec reviewer passes — presenting an unreviewed spec wastes the user's time on issues the reviewer would have caught. Ask the user to review the spec before proceeding. Wait for approval. If changes are requested, make them and re-run from step 8, since the user's changes haven't been independently verified.
 
 ### 10. Transition to plan
 
