@@ -81,6 +81,6 @@ Bug fixes skip spec-first and plan-review — they go straight to:
 1. **systematic-debugging** (this skill) — find root cause
 2. **tdd** — write failing test, fix, verify
 3. **serial-review** — spec compliance checks against the bug report (not a spec document), then code quality, then smoke test
-4. **finishing-branch** — integrate the work
+4. **finishing-task** — integrate the work
 
 For large bugs that require design changes, escalate to spec-first after root cause is understood.

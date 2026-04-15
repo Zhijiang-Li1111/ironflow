@@ -67,7 +67,7 @@
   <!-- ==================== NEW FEATURE PATH ==================== -->
   <rect x="20" y="190" width="900" height="180" class="section-bg"/>
   <text x="40" y="212" class="section-label">NEW FEATURE / REFACTOR / DELETE / UPGRADE</text>
-  <text x="40" y="225" class="section-sublabel">spec-first &#x2192; plan-review &#x2192; per-task: TDD + serial-review &#x2192; finishing-branch</text>
+  <text x="40" y="225" class="section-sublabel">spec-first &#x2192; plan-review &#x2192; per-task: TDD + serial-review &#x2192; finishing-task</text>
 
   <!-- spec-first -->
   <rect x="40" y="240" width="130" height="50" class="skill-box"/>
@@ -111,15 +111,15 @@
 
   <line x1="695" y1="265" x2="730" y2="265" class="arrow"/>
 
-  <!-- finishing-branch -->
+  <!-- finishing-task -->
   <rect x="730" y="240" width="120" height="50" class="end-box"/>
-  <text x="790" y="258" class="label">finishing-branch</text>
+  <text x="790" y="258" class="label">finishing-task</text>
   <text x="790" y="273" class="sublabel">Ship / PR</text>
 
   <!-- ==================== BUG FIX PATH ==================== -->
   <rect x="20" y="440" width="900" height="150" class="section-bg"/>
   <text x="40" y="462" class="section-label">BUG FIX / PERFORMANCE ISSUE</text>
-  <text x="40" y="475" class="section-sublabel">systematic-debugging &#x2192; tdd &#x2192; serial-review &#x2192; finishing-branch</text>
+  <text x="40" y="475" class="section-sublabel">systematic-debugging &#x2192; tdd &#x2192; serial-review &#x2192; finishing-task</text>
 
   <!-- systematic-debugging -->
   <rect x="40" y="490" width="180" height="50" class="skill-box"/>
@@ -143,9 +143,9 @@
 
   <line x1="610" y1="515" x2="660" y2="515" class="arrow"/>
 
-  <!-- finishing-branch -->
+  <!-- finishing-task -->
   <rect x="660" y="490" width="120" height="50" class="end-box"/>
-  <text x="720" y="508" class="label">finishing-branch</text>
+  <text x="720" y="508" class="label">finishing-task</text>
   <text x="720" y="523" class="sublabel">Ship / PR</text>
 
   <!-- Escalation arrow from debugging to spec-first -->
@@ -231,11 +231,11 @@
   <!-- Arrow from teammates to receiving-review -->
   <line x1="610" y1="862" x2="550" y2="870" class="arrow-feedback"/>
 
-  <!-- Arrow from finishing-branch (feature path) down to human PR reviews -->
+  <!-- Arrow from finishing-task (feature path) down to human PR reviews -->
   <path d="M 790 290 L 790 790 L 530 790 L 530 937 L 525 937" class="arrow-feedback"/>
   <text x="808" y="540" class="loop-label" style="fill:#d29922; writing-mode: tb;">creates PR</text>
 
-  <!-- Arrow from finishing-branch (bug path) down to human PR reviews -->
+  <!-- Arrow from finishing-task (bug path) down to human PR reviews -->
   <path d="M 720 540 L 720 790 L 380 790 L 380 937 L 375 937" class="arrow-feedback"/>
 
   <!-- Arrow from serial-review dispatched agents down to reviewer agents source box -->
@@ -244,7 +244,7 @@
 
   <!-- Arrow back from receiving-review to serial-review (re-verify) -->
   <path d="M 350 882 L 280 882 L 280 795 L 900 795 L 900 265 L 855 265" class="arrow-feedback"/>
-  <text x="300" y="896" class="loop-label" style="fill:#d29922">re-verify &#x2192; serial-review &#x2192; finishing-branch</text>
+  <text x="300" y="896" class="loop-label" style="fill:#d29922">re-verify &#x2192; serial-review &#x2192; finishing-task</text>
 
   <!-- ==================== CORE PRINCIPLES (cross-cutting) ==================== -->
   <rect x="20" y="985" width="900" height="55" class="section-bg" style="stroke:#58a6ff; stroke-dasharray: 4 2;"/>

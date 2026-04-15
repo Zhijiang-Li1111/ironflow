@@ -25,7 +25,7 @@ Each phase exists because skipping it has a known, specific cost:
 
 - **Independent review before shipping** (serial-review) finds blind spots that implementers cannot see in their own work. By checking spec compliance first, then code quality, then real-world behavior in layers, different classes of problems are caught at the cheapest stage to fix them. Reviewing code quality on an implementation that doesn't match the spec wastes everyone's time — hence the layered gating.
 
-- **Structured integration** (finishing-branch) ensures "done implementing" actually means "done." The user sees what was built, confirms it matches expectations, and chooses how to deliver — preventing premature merges, forgotten workarounds, and unreviewed PRs.
+- **Structured integration** (finishing-task) ensures "done implementing" actually means "done." The user sees what was built, confirms it matches expectations, and chooses how to deliver — preventing premature merges, forgotten workarounds, and unreviewed PRs.
 
 - **Rigorous feedback processing** (receiving-review) prevents the common pattern of blindly agreeing with every review comment. Implementing unverified suggestions introduces regressions and unnecessary changes. Verifying each suggestion against the codebase first, and pushing back when feedback is wrong, produces better code than social compliance does.
 
@@ -41,9 +41,9 @@ Each phase exists because skipping it has a known, specific cost:
 
 Different tasks benefit from different subsets of the workflow. Use your judgment based on what the user is trying to accomplish:
 
-**Building something new** — The full workflow produces the best results here because new features carry the highest risk of misunderstood requirements and scope creep. Start with design (spec-first) to build shared understanding, plan the implementation (plan-review) so the user can catch scope problems before code exists, implement each task with TDD and serial-review, and finish with finishing-branch.
+**Building something new** — The full workflow produces the best results here because new features carry the highest risk of misunderstood requirements and scope creep. Start with design (spec-first) to build shared understanding, plan the implementation (plan-review) so the user can catch scope problems before code exists, implement each task with TDD and serial-review, and finish with finishing-task.
 
-**Fixing a bug or performance issue** — Bugs don't need a design phase — they need investigation. Jump straight to systematic-debugging to find the root cause (guessing wastes far more time than investigating). Then use TDD to write a failing test and fix it, serial-review to verify the fix, and finishing-branch to integrate. If the investigation reveals the fix needs architectural changes (public interfaces, data models, or 3+ files), that's a sign the problem is deeper than a bug — step back to spec-first to redesign before continuing.
+**Fixing a bug or performance issue** — Bugs don't need a design phase — they need investigation. Jump straight to systematic-debugging to find the root cause (guessing wastes far more time than investigating). Then use TDD to write a failing test and fix it, serial-review to verify the fix, and finishing-task to integrate. If the investigation reveals the fix needs architectural changes (public interfaces, data models, or 3+ files), that's a sign the problem is deeper than a bug — step back to spec-first to redesign before continuing.
 
 **Refactoring or improving working code** — Refactoring without a clear definition of "better" tends to drift into unplanned scope. Start with design (spec-first) to define what the refactoring should achieve and where to stop. Then follow the build path. If you discover bugs during refactoring, handle those through the bug fix path — mixing bug fixes into refactoring makes both harder to verify.
 
@@ -71,9 +71,22 @@ Before starting development work, consider whether a skill would help with the c
 2. **Planning the work** — plan-review
 3. **Doing the work** — tdd (implementation with tests)
 4. **Verifying the work** — serial-review (multi-stage code review)
-5. **Delivering the work** — finishing-branch (integration), receiving-review (processing feedback)
+5. **Delivering the work** — finishing-task (integration), receiving-review (processing feedback)
 
 If you're unsure whether a skill applies, it's worth loading it — you can always move on if it's not relevant.
+
+## Branching and Isolation
+
+**You must have an isolation style confirmed before making any changes to the repo.** No file writes (specs, plans, or code) until this is resolved. Check project memory first — the user may have saved a preference, but they can override it per task. If no preference is saved, use `AskUserQuestion` to ask the user to choose. Do not proceed until the user has confirmed.
+
+- **Worktree** — creates a new worktree and branch via `EnterWorktree`. Enables parallel work in isolated workspaces while the main worktree stays clean. Notify the user before creating the worktree and wait for confirmation.
+- **Branch only** — creates a new branch from the default branch. All work happens in the current working directory on the task branch.
+
+Both styles share these rules:
+
+- **One task = one branch** — all artifacts for a task (specs, plans, code, tests) live on the task's branch.
+- **Know the default branch** — the default branch is where PRs merge into and where task branches are based from. Derive it from `origin/HEAD`. If `origin/HEAD` is not set (e.g., no remote), ask the user.
+- **finishing-task handles cleanup** — for worktree style, delivering the branch and exiting the worktree are one lifecycle. For branch style, delivering the branch and switching back to the default branch are one lifecycle.
 
 ## Core Principles
 
@@ -81,6 +94,7 @@ These apply across all phases:
 
 - **DRY, YAGNI** — high reuse, no over-engineering, elegant abstractions only when needed
 - **Follow existing patterns** — search the project first, never hand-craft what already exists. This is a common source of wasted work — the project almost certainly has what you need
+- **Use tools to collect user input** — when asking the user a question or requesting confirmation, prefer `AskUserQuestion` over inline text questions. This ensures the user sees a clear prompt and the workflow blocks until they respond.
 - **Evidence before claims** — run verification, read output, then claim. Phrases like "should work" or "seems fine" indicate unverified assumptions
 - **Reviewers verify independently** — read the actual code rather than trusting self-reports
 

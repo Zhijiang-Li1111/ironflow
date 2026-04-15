@@ -188,7 +188,7 @@ If there are no workarounds, skip this section.
 
 ## Next Step
 
-After all review stages pass and the workaround summary is presented, invoke the `ironflow:finishing-branch` skill to create the integration branch and prepare for merge.
+After all review stages pass and the workaround summary is presented, invoke the finishing-task skill to integrate the work.
 
 ## Red Flags
 

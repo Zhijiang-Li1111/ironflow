@@ -6,7 +6,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/Zhijiang-Li1111/ironflow?style=social)](https://github.com/Zhijiang-Li1111/ironflow/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Zhijiang-Li1111/ironflow?style=social)](https://github.com/Zhijiang-Li1111/ironflow/network/members)
 
-A Claude Code plugin that enforces a rigorous development workflow: spec-first design, plan with human review, TDD, serial gated review, and structured branch finishing.
+A Claude Code plugin that enforces a rigorous development workflow: spec-first design, plan with human review, TDD, serial gated review, and structured task finishing.
 
 ## Install
 
@@ -32,18 +32,18 @@ ironflow injects a workflow constitution into every Claude Code session via a Se
 ### New Feature / Refactor / Delete / Upgrade
 
 ```
-spec-first → plan-review (human confirms) → TDD → serial-review → finishing-branch
+spec-first → plan-review (human confirms) → TDD → serial-review → finishing-task
 ```
 
 ### Bug Fix / Performance Issue
 
 ```
-systematic-debugging → TDD → serial-review → finishing-branch
+systematic-debugging → TDD → serial-review → finishing-task
 ```
 
 ### Mixed Tasks
 
-Decomposed into separate tasks. Bug fix path runs first, then new feature path. Each ends with finishing-branch.
+Decomposed into separate tasks. Bug fix path runs first, then new feature path. Each ends with finishing-task.
 
 ## Architecture
 
@@ -58,7 +58,7 @@ Decomposed into separate tasks. Bug fix path runs first, then new feature path. 
 | **tdd** | About to write production code or fix a bug |
 | **serial-review** | Implementation done, needs gated review before completion |
 | **systematic-debugging** | Bug reported, test fails, build breaks, performance issue |
-| **finishing-branch** | All reviews pass, ready to integrate |
+| **finishing-task** | All reviews pass, ready to integrate |
 | **receiving-review** | Code review feedback arrives from reviewers or PR comments |
 | **using-my-workflow** | User asks about available skills (auto-injected, not manually triggered) |
 
@@ -112,7 +112,7 @@ ironflow/
 │   ├── tdd/SKILL.md
 │   ├── serial-review/SKILL.md
 │   ├── systematic-debugging/SKILL.md
-│   ├── finishing-branch/SKILL.md
+│   ├── finishing-task/SKILL.md
 │   └── receiving-review/SKILL.md
 └── agents/
     ├── spec-reviewer.md
