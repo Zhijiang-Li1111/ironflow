@@ -125,3 +125,9 @@ ironflow/
 ## License
 
 MIT
+
+## Security & Privacy Hygiene
+
+- `.gitignore` now blocks common local secret files (for example `.env`, `*.pem`, `*.key`, `*.p12`).
+- `.mailmap` normalizes historical local author identity display to GitHub noreply identity.
+- If you need to fully scrub already-pushed commit metadata from remote history, rewrite history as a maintainer operation (for example with `git filter-repo`) and force-push deliberately.
