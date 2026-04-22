@@ -7,3 +7,12 @@ architecture.html
 slides/
 ai-coding-evolution-slides.md
 evals/
+
+# Secrets and local credentials
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
